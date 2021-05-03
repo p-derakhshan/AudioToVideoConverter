@@ -1,34 +1,39 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
+from constants import Constants
 
+C= Constants()
 
 class Ui_MainWindow(object):
+
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(600, 450)
+        MainWindow.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
         MainWindow.setAutoFillBackground(False)
-        MainWindow.setStyleSheet("background-color: rgb(197, 255, 254);")
+        MainWindow.setStyleSheet("background-"+C.color_blue_light())
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
-        self.label = QtWidgets.QLabel(self.centralwidget)
-        self.label.setGeometry(QtCore.QRect(20, 30, 281, 401))
-        self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("../Images/wellcome_transparent.png"))
-        self.label.setObjectName("label")
-        self.pushButton = QtWidgets.QPushButton(self.centralwidget)
-        self.pushButton.setGeometry(QtCore.QRect(370, 150, 151, 141))
+        '''image label'''
+        self.lbl_img = QtWidgets.QLabel(self.centralwidget)
+        self.lbl_img.setGeometry(QtCore.QRect(20, 30, 281, 401))
+        self.lbl_img.setText("")
+        self.lbl_img.setPixmap(QtGui.QPixmap("../Images/welcome_transparent.png"))
+        self.lbl_img.setObjectName("lbl_img_welcome")
+        '''start button'''
+        self.btn_start = QtWidgets.QPushButton(self.centralwidget)
+        self.btn_start.setGeometry(QtCore.QRect(370, 150, 151, 141))
         font = QtGui.QFont()
         font.setPointSize(16)
-        self.pushButton.setFont(font)
-        self.pushButton.setStyleSheet("background-color: rgb(94, 130, 180);\n"
-"color: rgb(197, 255, 254);")
-        self.pushButton.setObjectName("pushButton")
-        self.label_2 = QtWidgets.QLabel(self.centralwidget)
-        self.label_2.setGeometry(QtCore.QRect(20, 50, 281, 21))
+        self.btn_start.setFont(font)
+        self.btn_start.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
+        self.btn_start.setObjectName("btn_start")
+        '''welcome label'''
+        self.lbl_welcome = QtWidgets.QLabel(self.centralwidget)
+        self.lbl_welcome.setGeometry(QtCore.QRect(20, 50, 281, 21))
         font = QtGui.QFont()
         font.setPointSize(20)
-        self.label_2.setFont(font)
-        self.label_2.setAlignment(QtCore.Qt.AlignCenter)
-        self.label_2.setObjectName("label_2")
+        self.lbl_welcome.setFont(font)
+        self.lbl_welcome.setAlignment(QtCore.Qt.AlignCenter)
+        self.lbl_welcome.setObjectName("lbl_welcome")
         MainWindow.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(MainWindow)
         self.statusbar.setObjectName("statusbar")
@@ -40,8 +45,8 @@ class Ui_MainWindow(object):
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
         MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
-        self.pushButton.setText(_translate("MainWindow", "START"))
-        self.label_2.setText(_translate("MainWindow", "Welcome!"))
+        self.btn_start.setText(_translate("MainWindow", "START"))
+        self.lbl_welcome.setText(_translate("MainWindow", "Welcome!"))
 
 
 if __name__ == "__main__":
