@@ -12,7 +12,7 @@ class Ui_MainWindow(object):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(20, 30, 281, 401))
         self.label.setText("")
-        self.label.setPixmap(QtGui.QPixmap("../Images/wellcomes.jpg"))
+        self.label.setPixmap(QtGui.QPixmap("../Images/wellcome_transparent.png"))
         self.label.setObjectName("label")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(370, 150, 151, 141))
