@@ -12,4 +12,4 @@ class Constants():
         return "color: rgb(94, 130, 180);\n"
 
     def color_white(self):
-        return "color: rgb(0, 0, 0);\n"
+        return "color: rgb(255, 255, 255);\n"
