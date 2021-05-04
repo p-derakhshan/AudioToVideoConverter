@@ -28,9 +28,9 @@ class Ui_MainWindow(object):
         self.btn_start.setObjectName("btn_start")
         '''welcome label'''
         self.lbl_welcome = QtWidgets.QLabel(self.centralwidget)
-        self.lbl_welcome.setGeometry(QtCore.QRect(20, 50, 281, 21))
+        self.lbl_welcome.setGeometry(QtCore.QRect(20, 45, 281, 25))
         font = QtGui.QFont()
-        font.setPointSize(20)
+        font.setPointSize(18)
         self.lbl_welcome.setFont(font)
         self.lbl_welcome.setAlignment(QtCore.Qt.AlignCenter)
         self.lbl_welcome.setObjectName("lbl_welcome")
