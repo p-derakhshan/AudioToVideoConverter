@@ -3,14 +3,18 @@ from constants import Constants
 
 C= Constants()
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
-        MainWindow.setStyleSheet("background-"+C.color_blue_light())
-        MainWindow.setWindowIcon(QtGui.QIcon("../Images/welcome_transparent.png"))
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_MainWindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(Ui_MainWindow, self).__init__()
+        self.setObjectName("MainWindow")
+        self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
+        self.setStyleSheet("background-"+C.color_blue_light())
+        self.setWindowIcon(QtGui.QIcon("../Images/welcome_transparent.png"))
+        self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
+        self.setupUi()
+
+    def setupUi(self):
         self.label = QtWidgets.QLabel(self.centralwidget)
         self.label.setGeometry(QtCore.QRect(30, 70, 91, 31))
         font = QtGui.QFont()
@@ -37,17 +41,17 @@ class Ui_MainWindow(object):
         self.pushButton_3.setGeometry(QtCore.QRect(210, 200, 151, 31))
         self.pushButton_3.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
         self.pushButton_3.setObjectName("pushButton_3")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi()
+        QtCore.QMetaObject.connectSlotsByName(self)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("AudioToVideo", "AudioToVideo"))
+        self.setWindowTitle(_translate("AudioToVideo", "AudioToVideo"))
         self.label.setText(_translate("MainWindow", "converting"))
         self.pushButton.setText(_translate("MainWindow", "Again"))
         self.pushButton_2.setText(_translate("MainWindow", "Cancel"))
