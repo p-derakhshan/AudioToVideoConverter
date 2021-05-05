@@ -1,18 +1,24 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from constants import Constants
+import sys , directories
 
 C= Constants()
 
-class Ui_MainWindow(object):
-
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
-        MainWindow.setAutoFillBackground(False)
-        MainWindow.setStyleSheet("background-"+C.color_blue_light())
-        MainWindow.setWindowIcon(QtGui.QIcon("../Images/welcome_transparent.png"))
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_MainWindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(Ui_MainWindow, self).__init__()
+        self.setObjectName("MainWindow")
+        self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
+        self.setAutoFillBackground(False)
+        self.setStyleSheet("background-"+C.color_blue_light())
+        self.setWindowIcon(QtGui.QIcon("../Images/welcome_transparent.png"))
+        self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
+        self.ui_dir = directories.Ui_MainWindow()
+        self.setupUi()
+        
+
+    def setupUi(self):
         '''image label'''
         self.lbl_img = QtWidgets.QLabel(self.centralwidget)
         self.lbl_img.setGeometry(QtCore.QRect(20, 30, 281, 401))
@@ -29,6 +35,7 @@ class Ui_MainWindow(object):
         self.btn_start.setFont(font)
         self.btn_start.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
         self.btn_start.setObjectName("btn_start")
+        self.btn_start.clicked.connect(self.click_start)
         '''welcome label'''
         self.lbl_welcome = QtWidgets.QLabel(self.centralwidget)
         self.lbl_welcome.setGeometry(QtCore.QRect(20, 45, 281, 25))
@@ -37,26 +44,29 @@ class Ui_MainWindow(object):
         self.lbl_welcome.setFont(font)
         self.lbl_welcome.setAlignment(QtCore.Qt.AlignCenter)
         self.lbl_welcome.setObjectName("lbl_welcome")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi()
+        QtCore.QMetaObject.connectSlotsByName(self)
 
-    def retranslateUi(self, MainWindow):
+
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("AudioToVideo", "AudioToVideo"))
+        self.setWindowTitle(_translate("AudioToVideo", "AudioToVideo"))
         self.btn_start.setText(_translate("MainWindow", "START"))
         self.lbl_welcome.setText(_translate("MainWindow", "Welcome!"))
 
+    def click_start(self):
+        self.ui_dir.show()
+        self.close()
+
 
 if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+    pass
+app = QtWidgets.QApplication(sys.argv)
+ui = Ui_MainWindow()
+ui.show()
+app.exec()
