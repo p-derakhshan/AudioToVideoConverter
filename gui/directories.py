@@ -1,16 +1,22 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from constants import Constants
+import sys, converting
 
 C= Constants()
 
-class Ui_MainWindow(object):
-    def setupUi(self, MainWindow):
-        MainWindow.setObjectName("MainWindow")
-        MainWindow.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
-        MainWindow.setStyleSheet("background-"+C.color_blue_light())
-        MainWindow.setWindowIcon(QtGui.QIcon("../Images/welcome_transparent.png"))
-        self.centralwidget = QtWidgets.QWidget(MainWindow)
+class Ui_MainWindow(QtWidgets.QMainWindow):
+    def __init__(self):
+        super(Ui_MainWindow, self).__init__()
+        self.setObjectName("MainWindow")
+        self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
+        self.setStyleSheet("background-"+C.color_blue_light())
+        self.setWindowIcon(QtGui.QIcon("../Images/welcome_transparent.png"))
+        self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
+        self.ui_convert = converting.Ui_MainWindow()
+        self.setupUi()
+
+    def setupUi(self):
         self.lbl_audio_dir = QtWidgets.QLabel(self.centralwidget)
         self.lbl_audio_dir.setGeometry(QtCore.QRect(10, 20, 571, 16))
         self.lbl_audio_dir.setObjectName("lbl_audio_dir")
@@ -49,17 +55,18 @@ class Ui_MainWindow(object):
         self.pushButton_2.setGeometry(QtCore.QRect(440, 400, 75, 23))
         self.pushButton_2.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
         self.pushButton_2.setObjectName("pushButton_2")
-        MainWindow.setCentralWidget(self.centralwidget)
-        self.statusbar = QtWidgets.QStatusBar(MainWindow)
+        self.pushButton_2.clicked.connect(self.click_run)
+        self.setCentralWidget(self.centralwidget)
+        self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
-        MainWindow.setStatusBar(self.statusbar)
+        self.setStatusBar(self.statusbar)
 
-        self.retranslateUi(MainWindow)
-        QtCore.QMetaObject.connectSlotsByName(MainWindow)
+        self.retranslateUi()
+        QtCore.QMetaObject.connectSlotsByName(self)
 
-    def retranslateUi(self, MainWindow):
+    def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("AudioToVideo", "AudioToVideo"))
+        self.setWindowTitle(_translate("AudioToVideo", "AudioToVideo"))
         self.lbl_audio_dir.setText(_translate("MainWindow", "Choose Audio File Directory:"))
         self.lbl_out_dir.setText(_translate("MainWindow", "Choose Audio File Directory:"))
         self.checkBox.setText(_translate("MainWindow", "I just want the text file"))
@@ -68,12 +75,6 @@ class Ui_MainWindow(object):
         self.pushButton.setText(_translate("MainWindow", "CANCEL"))
         self.pushButton_2.setText(_translate("MainWindow", "RUN"))
 
-
-if __name__ == "__main__":
-    import sys
-    app = QtWidgets.QApplication(sys.argv)
-    MainWindow = QtWidgets.QMainWindow()
-    ui = Ui_MainWindow()
-    ui.setupUi(MainWindow)
-    MainWindow.show()
-    sys.exit(app.exec_())
+    def click_run(self):
+        self.ui_convert.show()
+        self.close()
