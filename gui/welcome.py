@@ -10,14 +10,17 @@ class Ui_MainWindow(object):
         MainWindow.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
         MainWindow.setAutoFillBackground(False)
         MainWindow.setStyleSheet("background-"+C.color_blue_light())
+        MainWindow.setWindowIcon(QtGui.QIcon("../Images/welcome_transparent.png"))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         '''image label'''
         self.lbl_img = QtWidgets.QLabel(self.centralwidget)
         self.lbl_img.setGeometry(QtCore.QRect(20, 30, 281, 401))
         self.lbl_img.setText("")
-        self.lbl_img.setPixmap(QtGui.QPixmap("../Images/welcome_transparent.png"))
+        pixmap = QtGui.QPixmap("../Images/welcome_transparent.png")
+        self.lbl_img.setPixmap(pixmap)
         self.lbl_img.setObjectName("lbl_img_welcome")
+        self.lbl_img.resize(pixmap.width(),pixmap.height())
         '''start button'''
         self.btn_start = QtWidgets.QPushButton(self.centralwidget)
         self.btn_start.setGeometry(QtCore.QRect(370, 150, 151, 141))
@@ -44,7 +47,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("AudioToVideo", "AudioToVideo"))
         self.btn_start.setText(_translate("MainWindow", "START"))
         self.lbl_welcome.setText(_translate("MainWindow", "Welcome!"))
 

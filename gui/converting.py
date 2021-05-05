@@ -8,6 +8,7 @@ class Ui_MainWindow(object):
         MainWindow.setObjectName("MainWindow")
         MainWindow.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
         MainWindow.setStyleSheet("background-"+C.color_blue_light())
+        MainWindow.setWindowIcon(QtGui.QIcon("../Images/welcome_transparent.png"))
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.label = QtWidgets.QLabel(self.centralwidget)
@@ -46,7 +47,7 @@ class Ui_MainWindow(object):
 
     def retranslateUi(self, MainWindow):
         _translate = QtCore.QCoreApplication.translate
-        MainWindow.setWindowTitle(_translate("MainWindow", "MainWindow"))
+        MainWindow.setWindowTitle(_translate("AudioToVideo", "AudioToVideo"))
         self.label.setText(_translate("MainWindow", "converting"))
         self.pushButton.setText(_translate("MainWindow", "Again"))
         self.pushButton_2.setText(_translate("MainWindow", "Cancel"))
