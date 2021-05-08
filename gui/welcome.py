@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from constants import Constants
-import sys , directories
+import sys , directories,os
 
 C= Constants()
 
@@ -11,7 +11,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
         self.setAutoFillBackground(False)
         self.setStyleSheet("background-"+C.color_blue_light())
-        self.setWindowIcon(QtGui.QIcon("../Images/welcome_transparent.png"))
+        script_dir = os.path.dirname(__file__) 
+        rel_path = "../images/icon.png"
+        abs_file_path = os.path.join(script_dir, rel_path)
+        self.setWindowIcon(QtGui.QIcon(abs_file_path ))
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.ui_dir = directories.Ui_MainWindow()
@@ -21,9 +24,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
     def setupUi(self):
         '''image label'''
         self.lbl_img = QtWidgets.QLabel(self.centralwidget)
-        self.lbl_img.setGeometry(QtCore.QRect(20, 30, 281, 401))
+        self.lbl_img.setGeometry(QtCore.QRect(20, 70, 281, 401))
         self.lbl_img.setText("")
-        pixmap = QtGui.QPixmap("../Images/welcome_transparent.png")
+        script_dir = os.path.dirname(__file__) 
+        rel_path = "../images/welcome_transparent.png"
+        abs_file_path = os.path.join(script_dir, rel_path)
+        pixmap = QtGui.QPixmap(abs_file_path)
         self.lbl_img.setPixmap(pixmap)
         self.lbl_img.setObjectName("lbl_img_welcome")
         self.lbl_img.resize(pixmap.width(),pixmap.height())
@@ -38,7 +44,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.btn_start.clicked.connect(self.click_start)
         '''welcome label'''
         self.lbl_welcome = QtWidgets.QLabel(self.centralwidget)
-        self.lbl_welcome.setGeometry(QtCore.QRect(20, 45, 281, 25))
+        self.lbl_welcome.setGeometry(QtCore.QRect(25, 35, 281, 25))
         font = QtGui.QFont()
         font.setPointSize(18)
         self.lbl_welcome.setFont(font)
