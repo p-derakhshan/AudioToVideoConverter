@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from constants import Constants
-import sys , directories,os
+import sys , directories, os
 
 C= Constants()
 
@@ -11,10 +11,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
         self.setAutoFillBackground(False)
         self.setStyleSheet("background-"+C.color_blue_light())
-        script_dir = os.path.dirname(__file__) 
-        rel_path = "../images/icon.png"
-        abs_file_path = os.path.join(script_dir, rel_path)
-        self.setWindowIcon(QtGui.QIcon(abs_file_path ))
+        self.script_dir = os.path.dirname(__file__) 
+        icon_path = "../images/icon.png"
+        file_path = os.path.join(self.script_dir, icon_path)
+        self.setWindowIcon(QtGui.QIcon(file_path ))
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.ui_dir = directories.Ui_MainWindow()
@@ -25,10 +25,9 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         '''image label'''
         self.lbl_img = QtWidgets.QLabel(self.centralwidget)
         self.lbl_img.setGeometry(QtCore.QRect(20, 70, 281, 401))
-        self.lbl_img.setText("")
-        script_dir = os.path.dirname(__file__) 
+        self.lbl_img.setText("") 
         rel_path = "../images/welcome_transparent.png"
-        abs_file_path = os.path.join(script_dir, rel_path)
+        abs_file_path = os.path.join(self.script_dir, rel_path)
         pixmap = QtGui.QPixmap(abs_file_path)
         self.lbl_img.setPixmap(pixmap)
         self.lbl_img.setObjectName("lbl_img_welcome")
@@ -54,7 +53,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
         self.setStatusBar(self.statusbar)
-
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
 
