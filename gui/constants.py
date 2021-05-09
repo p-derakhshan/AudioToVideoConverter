@@ -13,3 +13,7 @@ class Constants():
 
     def color_white(self):
         return "color: rgb(255, 255, 255);\n"
+    def color_gray_light(self):
+        return "color: rgb(230, 230, 230);\n"
+    def color_black(self):
+        return "color: rgb(0, 0, 0);\n"
