@@ -10,10 +10,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.setObjectName("MainWindow")
         self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
         self.setStyleSheet("background-"+C.color_blue_light())
-        script_dir = os.path.dirname(__file__) 
-        rel_path = "../images/icon.png"
-        abs_file_path = os.path.join(script_dir, rel_path)
-        self.setWindowIcon(QtGui.QIcon(abs_file_path ))
+        self.script_dir = os.path.dirname(__file__) 
+        icon_path = "../images/icon.png"
+        file_path = os.path.join(self.script_dir, icon_path)
+        self.setWindowIcon(QtGui.QIcon(file_path ))
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.setupUi()
