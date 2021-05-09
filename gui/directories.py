@@ -10,10 +10,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.setObjectName("MainWindow")
         self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
         self.setStyleSheet("background-"+C.color_blue_light())
-        script_dir = os.path.dirname(__file__) 
-        rel_path = "../images/icon.png"
-        abs_file_path = os.path.join(script_dir, rel_path)
-        self.setWindowIcon(QtGui.QIcon(abs_file_path ))
+        self.script_dir = os.path.dirname(__file__) 
+        icon_path = "../images/icon.png"
+        file_path = os.path.join(self.script_dir, icon_path)
+        self.setWindowIcon(QtGui.QIcon(file_path ))
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
         self.ui_convert = converting.Ui_MainWindow()
@@ -39,17 +39,21 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox.setGeometry(QtCore.QRect(10, 150, 571, 20))
         self.checkBox.setObjectName("checkBox")
+        self.checkBox.stateChanged.connect(self.check_b)
         self.checkBox_2 = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox_2.setGeometry(QtCore.QRect(10, 180, 571, 20))
         self.checkBox_2.setObjectName("checkBox_2")
+        self.checkBox_2.stateChanged.connect(self.check_b2)
         self.lbl_script_dir = QtWidgets.QLabel(self.centralwidget)
         self.lbl_script_dir.setGeometry(QtCore.QRect(10, 210, 571, 16))
         self.lbl_script_dir.setObjectName("lbl_script_dir")
+        self.lbl_script_dir.setHidden(True)
         self.txt_script_dir = QtWidgets.QTextEdit(self.centralwidget)
         self.txt_script_dir.setGeometry(QtCore.QRect(10, 240, 581, 21))
         self.txt_script_dir.setStyleSheet("background-"+C.color_white())
         self.txt_script_dir.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
         self.txt_script_dir.setObjectName("txt_script_dir")
+        self.txt_script_dir.setHidden(True)
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(520, 400, 75, 23))
         self.pushButton.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
@@ -77,7 +81,24 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.lbl_script_dir.setText(_translate("MainWindow", "Choose Text File Directory:"))
         self.pushButton.setText(_translate("MainWindow", "CANCEL"))
         self.pushButton_2.setText(_translate("MainWindow", "RUN"))
-
+    def check_b(self):
+        if self.checkBox.isChecked():
+            self.checkBox_2.setCheckable(False)
+            self.checkBox_2.setStyleSheet("QCheckBox::indicator{ border: 1px solid black; background-"+C.color_gray_light()+
+"}\n"
+"")
+        else:
+            self.checkBox_2.setCheckable(True)
+            self.checkBox_2.setStyleSheet("")
+        
+    def check_b2(self):
+        if self.checkBox_2.isChecked():
+            self.lbl_script_dir.setHidden(False)
+            self.txt_script_dir.setHidden(False)
+        else:
+            self.lbl_script_dir.setHidden(True)
+            self.txt_script_dir.setHidden(True)
+            
     def click_run(self):
         self.ui_convert.show()
         self.close()
