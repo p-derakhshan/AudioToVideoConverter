@@ -93,11 +93,18 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         
     def check_b2(self):
         if self.checkBox_2.isChecked():
+            self.checkBox.setCheckable(False)
+            self.checkBox.setStyleSheet("QCheckBox::indicator{ border: 1px solid black; background-"+C.color_gray_light()+
+"}\n"
+"")
             self.lbl_script_dir.setHidden(False)
             self.txt_script_dir.setHidden(False)
         else:
             self.lbl_script_dir.setHidden(True)
             self.txt_script_dir.setHidden(True)
+            self.checkBox.setCheckable(True)
+            self.checkBox.setStyleSheet("")
+        
             
     def click_run(self):
         self.ui_convert.show()
