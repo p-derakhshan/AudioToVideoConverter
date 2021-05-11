@@ -23,16 +23,16 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.lbl_audio_dir = QtWidgets.QLabel(self.centralwidget)
         self.lbl_audio_dir.setGeometry(QtCore.QRect(10, 20, 571, 16))
         self.lbl_audio_dir.setObjectName("lbl_audio_dir")
-        self.txt_audio_dir = QtWidgets.QTextEdit(self.centralwidget)
-        self.txt_audio_dir.setGeometry(QtCore.QRect(10, 50, 581, 21))
+        self.txt_output_dir = QtWidgets.QLineEdit(self.centralwidget)
+        self.txt_output_dir.setGeometry(QtCore.QRect(10, 110, 571, 25))
+        self.txt_output_dir.setStyleSheet("background-"+C.color_white())
+        self.txt_output_dir.setText("")
+        self.txt_audio_dir = QtWidgets.QLineEdit(self.centralwidget)
+        self.txt_audio_dir.setGeometry(QtCore.QRect(10, 50, 571, 25))
         self.txt_audio_dir.setStyleSheet("background-"+C.color_white())
-        self.txt_audio_dir.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.txt_audio_dir.setObjectName("txt_audio_dir")
-        self.txt_out_dir = QtWidgets.QTextEdit(self.centralwidget)
-        self.txt_out_dir.setGeometry(QtCore.QRect(10, 120, 581, 21))
-        self.txt_out_dir.setStyleSheet("background-"+C.color_white())
-        self.txt_out_dir.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
-        self.txt_out_dir.setObjectName("txt_out_dir")
+        self.txt_audio_dir.setText("")
+        self.txt_audio_dir.returnPressed.connect(self.get_audio_dir)
+        self.txt_output_dir.returnPressed.connect(self.get_output_dir)
         self.lbl_out_dir = QtWidgets.QLabel(self.centralwidget)
         self.lbl_out_dir.setGeometry(QtCore.QRect(10, 90, 571, 16))
         self.lbl_out_dir.setObjectName("lbl_out_dir")
@@ -48,11 +48,12 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.lbl_script_dir.setGeometry(QtCore.QRect(10, 210, 571, 16))
         self.lbl_script_dir.setObjectName("lbl_script_dir")
         self.lbl_script_dir.setHidden(True)
-        self.txt_script_dir = QtWidgets.QTextEdit(self.centralwidget)
-        self.txt_script_dir.setGeometry(QtCore.QRect(10, 240, 581, 21))
+        self.txt_script_dir = QtWidgets.QLineEdit(self.centralwidget)
+        self.txt_script_dir.setGeometry(QtCore.QRect(10, 240, 571, 25))
         self.txt_script_dir.setStyleSheet("background-"+C.color_white())
-        self.txt_script_dir.setVerticalScrollBarPolicy(QtCore.Qt.ScrollBarAlwaysOff)
+        self.txt_script_dir.setText("")
         self.txt_script_dir.setObjectName("txt_script_dir")
+        self.txt_script_dir.returnPressed.connect(self.get_script_dir)
         self.txt_script_dir.setHidden(True)
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(520, 400, 75, 23))
@@ -75,7 +76,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("AudioToVideo", "AudioToVideo"))
         self.lbl_audio_dir.setText(_translate("MainWindow", "Choose Audio File Directory:"))
-        self.lbl_out_dir.setText(_translate("MainWindow", "Choose Audio File Directory:"))
+        self.lbl_out_dir.setText(_translate("MainWindow", "Choose Output Directory:"))
         self.checkBox.setText(_translate("MainWindow", "I just want the text file"))
         self.checkBox_2.setText(_translate("MainWindow", "I have the script"))
         self.lbl_script_dir.setText(_translate("MainWindow", "Choose Text File Directory:"))
@@ -105,7 +106,15 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             self.checkBox.setCheckable(True)
             self.checkBox.setStyleSheet("")
         
-            
+    def get_audio_dir(self):
+        self.audio_dir = self.txt_audio_dir.text()
+        return  self.audio_dir 
+    def get_output_dir(self):
+        self.output_dir = self.txt_output_dir.text()
+        return self.output_dir 
+    def get_script_dir(self):
+        self.script_dir = self.txt_script.text()  
+        return self.output_dir
     def click_run(self):
         self.ui_convert.show()
         self.close()
