@@ -19,10 +19,16 @@ class SpeechToText:
             model.setScorerAlphaBeta(self.lm_alpha, self.lm_beta)
             model.setBeamWidth(self.beam_width)
             return model
-            
+
         def read_wav_file(self,filename):
             with wave.open(filename, 'rb') as w:
                 rate = w.getframerate()
                 frames = w.getnframes()
                 buffer = w.readframes(frames)
         return buffer, rate
+
+        def transcribe(self,wav_filename):
+            model=self.set_model()
+            buffer, rate = self.read_wav_file(wav_filename)
+            data16 = np.frombuffer(buffer, dtype=np.int16)
+            return model.stt(data16)
