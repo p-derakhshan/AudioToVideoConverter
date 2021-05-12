@@ -50,3 +50,10 @@ class SpeechToText:
             def convert_speech_to_text(self , filename):
                 wav_filename=self.makewav(filename,'audio files/wav_format',self.file_location)
                 return self.transcribe(self.tuning(wav_filename))
+                
+if __name__=="main":
+    sample=SpeechToText('deepspeech-0.7.4-models.pbmm','deepspeech-0.7.4-models.scorer',100,0.75,1.85,"audio files/wrong_format")
+    filename='ALL the PROPOSAL DETAILS _ Bailey & Asa BTS Engagement Vlog.mp3'
+    text_file = open(os.path.splitext(filename)[0]+".txt", "w+")
+    text_file.write(sample.convert_speech_to_text(filename))
+    text_file.close()
