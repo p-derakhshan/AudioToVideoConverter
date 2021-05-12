@@ -32,3 +32,13 @@ class SpeechToText:
             buffer, rate = self.read_wav_file(wav_filename)
             data16 = np.frombuffer(buffer, dtype=np.int16)
             return model.stt(data16)
+
+        def tuning(self,wav_filename):
+            wav_file = AudioSegment.from_file(file=wav_filename)
+            wav_file = wav_file.set_frame_rate(16000)
+            wav_file = wav_file.set_channels(1)
+            out_file = os.path.splitext(wav_filename)[0] + "16khz(1)" + ".wav"
+            wav_file.export(out_f=out_file,format="wav")
+            return out_file   
+            
+             
