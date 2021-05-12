@@ -39,6 +39,10 @@ class SpeechToText:
             wav_file = wav_file.set_channels(1)
             out_file = os.path.splitext(wav_filename)[0] + "16khz(1)" + ".wav"
             wav_file.export(out_f=out_file,format="wav")
-            return out_file   
-            
-             
+            return out_file  
+
+            def makewav(self ,filename,right_ff,location):
+                 if filename.endswith(".mp3") or filename.endswith(".flac"):
+                    wav_filename =  right_ff+'/'+os.path.splitext(filename)[0] + ".wav"
+                AudioSegment.from_file(location+'/'+filename).export(wav_filename,format="wav")
+                return wav_filename
