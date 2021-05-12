@@ -13,4 +13,9 @@ class SpeechToText:
         self.lm_beta=lm_beta
         self.file_location=file_location
 
-        
+        def set_model(self):
+            model = Model(self.model_file_path)
+            model.enableExternalScorer(self.lm_file_path)
+            model.setScorerAlphaBeta(self.lm_alpha, self.lm_beta)
+            model.setBeamWidth(self.beam_width)
+            return model
