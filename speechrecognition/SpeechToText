@@ -1,0 +1,16 @@
+from deepspeech import Model
+import numpy as np
+import wave
+from pydub import AudioSegment
+import os
+class SpeechToText:
+
+        def __init__(self,model_file_path,lm_file_path,beam_width,lm_alpha,lm_beta,file_location):
+        self.model_file_path=model_file_path
+        self.lm_file_path=lm_file_path
+        self.beam_width=beam_width
+        self.lm_alpha=lm_alpha
+        self.lm_beta=lm_beta
+        self.file_location=file_location
+
+        
