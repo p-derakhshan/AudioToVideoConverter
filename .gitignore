@@ -3,3 +3,4 @@ gui/__pycache__/directories.cpython-38.pyc
 gui/__pycache__/converting.cpython-38.pyc
 *.pyc
 gui/__pycache__/constants.cpython-38.pyc
+SpeechToText/deepspeech-0.7.4-models.scorer
