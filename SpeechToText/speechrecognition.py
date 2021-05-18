@@ -55,3 +55,4 @@ class speechrecognition:
     def convert_speech_to_text(self , filename):
         wav_filename=self.makewav(filename,'audio files/wav_format',self.file_location)
         return self.transcribe(self.tuning(wav_filename))
+
