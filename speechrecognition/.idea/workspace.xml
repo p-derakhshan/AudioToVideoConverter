@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="1484863b-8209-407b-8563-e6b5199ada46" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/../speech_recognition/deepspeech-0.7.4-models.pbmm" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/../speech_recognition/deepspeech-0.7.4-models.scorer" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../speech_recognition/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/main.py" beforeDir="false" afterPath="$PROJECT_DIR$/main.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../speech_recognition/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/../speech_recognition/.idea/workspace.xml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,7 +23,7 @@
   <component name="ProjectId" id="1saP6KTqF1H2g8Uvmt9OZ62tw1D" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="PropertiesComponent">
-    <property name="last_opened_file_path" value="$PROJECT_DIR$" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../speech_recognition" />
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RunDashboard">
