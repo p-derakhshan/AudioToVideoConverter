@@ -2,15 +2,15 @@ class Sprites():
     def __init__(self):
         super(Sprites, self).__init__()
         #read images
-        self.images = {'A':'sprites/A.jpg',
-                       'O':'sprites/O.jpg',
-                       'E':'sprites/E.jpg',
-                       'WR':'sprites/WR.jpg',
-                       'TS':'sprites/TS.jpg',
-                       'LN':'sprites/LN.jpg',
-                       'UQ':'sprites/UQ.jpg',
-                       'MBP':'sprites/MBP.jpg',
-                       'FV':'sprites/FV.jpg'}
+        self.images = {'A':'Images/A.jpg',
+                       'O':'Images/O.jpg',
+                       'E':'Images/E.jpg',
+                       'WR':'Images/WR.jpg',
+                       'TS':'Images/TS.jpg',
+                       'LN':'Images/LN.jpg',
+                       'UQ':'Images/UQ.jpg',
+                       'MBP':'Images/MBP.jpg',
+                       'FV':'Images/FV.jpg'}
         
  
     def getImg(self,face):
