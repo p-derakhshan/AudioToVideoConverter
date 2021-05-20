@@ -15,8 +15,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         file_path = os.path.join(self.script_dir, icon_path)
         self.setWindowIcon(QtGui.QIcon(file_path ))
         self.centralwidget = QtWidgets.QWidget(self)
+        self.audio_dir=''
+        self.output_dir=''
+        self.script_dir=''
         self.centralwidget.setObjectName("centralwidget")
-        self.ui_convert = converting.Ui_MainWindow()
         self.setupUi()
 
     def setupUi(self):
@@ -108,13 +110,11 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         
     def get_audio_dir(self):
         self.audio_dir = self.txt_audio_dir.text()
-        return  self.audio_dir 
     def get_output_dir(self):
         self.output_dir = self.txt_output_dir.text()
-        return self.output_dir 
     def get_script_dir(self):
         self.script_dir = self.txt_script.text()  
-        return self.output_dir
     def click_run(self):
+        self.ui_convert = converting.Ui_MainWindow(self.audio_dir,self.output_dir, self.script_dir)
         self.ui_convert.show()
         self.close()
