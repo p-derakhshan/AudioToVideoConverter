@@ -4,7 +4,7 @@ import os, time
 C= Constants()
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
-    def __init__(self):
+    def __init__(self,audio_dir,output_dir,script_dir):
         super(Ui_MainWindow, self).__init__()
         self.setObjectName("MainWindow")
         self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
@@ -15,6 +15,10 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.setWindowIcon(QtGui.QIcon(file_path ))
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
+        self.audio_dir=audio_dir
+        self.output_dir=output_dir
+        self.script_dir=script_dir
+        print(self.audio_dir,self.output_dir, self.script_dir)
         self.setupUi()
     def setupUi(self):
         self.label = QtWidgets.QLabel(self.centralwidget)
