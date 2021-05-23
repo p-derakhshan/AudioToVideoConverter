@@ -1,6 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
 from constants import Constants
-import os, time
+import os, time,webbrowser
 C= Constants()
 
 class Ui_MainWindow(QtWidgets.QMainWindow):
@@ -43,6 +43,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_2.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
         self.pushButton_2.setObjectName("pushButton_3")
         self.pushButton_2.setHidden(True)
+        self.pushButton_2.clicked.connect(self.open_folder)
         self.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
@@ -64,7 +65,9 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             self.progressBar.setValue(i)
         self.pushButton_2.setHidden(False)
         self.pushButton.setText(_translate("MainWindow", "Again"))
-    
+    def open_folder(self):
+        webbrowser.open(self.output_dir)
+
 if __name__ == "__main__":
     import sys
     app = QtWidgets.QApplication(sys.argv)
