@@ -33,8 +33,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.txt_audio_dir.setGeometry(QtCore.QRect(10, 50, 571, 25))
         self.txt_audio_dir.setStyleSheet("background-"+C.color_white())
         self.txt_audio_dir.setText("")
-        self.txt_audio_dir.returnPressed.connect(self.get_audio_dir)
-        self.txt_output_dir.returnPressed.connect(self.get_output_dir)
         self.lbl_out_dir = QtWidgets.QLabel(self.centralwidget)
         self.lbl_out_dir.setGeometry(QtCore.QRect(10, 90, 571, 16))
         self.lbl_out_dir.setObjectName("lbl_out_dir")
@@ -55,7 +53,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.txt_script_dir.setStyleSheet("background-"+C.color_white())
         self.txt_script_dir.setText("")
         self.txt_script_dir.setObjectName("txt_script_dir")
-        self.txt_script_dir.returnPressed.connect(self.get_script_dir)
         self.txt_script_dir.setHidden(True)
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(520, 400, 75, 23))
@@ -107,14 +104,11 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             self.txt_script_dir.setHidden(True)
             self.checkBox.setCheckable(True)
             self.checkBox.setStyleSheet("")
-        
-    def get_audio_dir(self):
-        self.audio_dir = self.txt_audio_dir.text()
-    def get_output_dir(self):
-        self.output_dir = self.txt_output_dir.text()
-    def get_script_dir(self):
-        self.script_dir = self.txt_script.text()  
+
     def click_run(self):
+        self.audio_dir = self.txt_audio_dir.text()
+        self.output_dir = self.txt_output_dir.text()
+        self.script_dir = self.txt_script_dir.text() 
         self.ui_convert = converting.Ui_MainWindow(self.audio_dir,self.output_dir, self.script_dir)
         self.ui_convert.show()
         self.close()

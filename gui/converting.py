@@ -18,7 +18,6 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.audio_dir=audio_dir
         self.output_dir=output_dir
         self.script_dir=script_dir
-        print(self.audio_dir,self.output_dir, self.script_dir)
         self.setupUi()
     def setupUi(self):
         self.label = QtWidgets.QLabel(self.centralwidget)
