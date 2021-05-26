@@ -17,3 +17,5 @@ class Constants():
         return "color: rgb(230, 230, 230);\n"
     def color_black(self):
         return "color: rgb(0, 0, 0);\n"
+    def color_red(self):
+        return "color: rgb(230,30,30);\n"
