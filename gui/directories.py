@@ -83,6 +83,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_2.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_2.clicked.connect(self.click_run)
+        self.pushButton.clicked.connect(self.click_cancel)
         self.setCentralWidget(self.centralwidget)
         self.statusbar = QtWidgets.QStatusBar(self)
         self.statusbar.setObjectName("statusbar")
@@ -105,7 +106,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.checkBox_2.setText(_translate("MainWindow", "I have the script"))
         self.lbl_script_dir.setText(_translate("MainWindow", "Choose Text File Directory:"))
         self.pushButton.setText(_translate("MainWindow", "CANCEL"))
-        self.pushButton_2.setText(_translate("MainWindow", "RUN"))
+        self.pushButton_2.setText(_translate("MainWindow", "NEXT"))
     def check_b(self):
         if self.checkBox.isChecked():
             self.checkBox_2.setCheckable(False)
@@ -169,6 +170,8 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
             return True
         else:
             return False
+    def click_cancel(self):
+        self.close()
     def click_run(self):
         self.audio_dir = self.txt_audio_dir.text()
         self.output_dir = self.txt_output_dir.text()
