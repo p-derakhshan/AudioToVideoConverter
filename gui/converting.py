@@ -10,7 +10,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
         self.setStyleSheet("background-"+C.color_blue_light())
         self.file_dir = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir)
-        icon_path = "Images/icon.png"
+        icon_path = "sprites/icon.png"
         file_path = os.path.join(self.file_dir, icon_path)
         self.setWindowIcon(QtGui.QIcon(file_path))
         self.centralwidget = QtWidgets.QWidget(self)

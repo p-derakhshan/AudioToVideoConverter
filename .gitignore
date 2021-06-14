@@ -4,9 +4,6 @@ gui/__pycache__/converting.cpython-38.pyc
 *.pyc
 gui/__pycache__/constants.cpython-38.pyc
 SpeechToText/deepspeech-0.7.4-models.scorer
-SpeechToText/audio files/wav_format/ALL the PROPOSAL DETAILS _ Bailey & Asa BTS Engagement Vlog.wav
-*.wav
-*.mp3
 SpeechToText/deepspeech-0.7.4-models.pbmm
-
-SpeechToText\venv
+SpeechToText/venv
+SpeechToText/venv/Lib/site-packages/deepspeech-0.7.4.dist-info/entry_points.txt
