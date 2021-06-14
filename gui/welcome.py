@@ -12,7 +12,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.setAutoFillBackground(False)
         self.setStyleSheet("background-"+C.color_blue_light())
         self.file_dir = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir)
-        icon_path = "sprites/icon.png"
+        icon_path = "Images/icon.png"
         file_path = os.path.join(self.file_dir, icon_path)
         self.setWindowIcon(QtGui.QIcon(file_path))
         self.centralwidget = QtWidgets.QWidget(self)
@@ -26,7 +26,7 @@ class Ui_MainWindow(QtWidgets.QMainWindow):
         self.lbl_img = QtWidgets.QLabel(self.centralwidget)
         self.lbl_img.setGeometry(QtCore.QRect(20, 70, 281, 401))
         self.lbl_img.setText("") 
-        rel_path = "sprites/welcome_transparent.png"
+        rel_path = "Images/welcome_transparent.png"
         abs_file_path = os.path.join(self.file_dir, rel_path)
         pixmap = QtGui.QPixmap(abs_file_path)
         self.lbl_img.setPixmap(pixmap)
