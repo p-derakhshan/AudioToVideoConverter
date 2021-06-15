@@ -256,7 +256,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         self.audio_dir=audio_dir
         self.output_dir=output_dir
         self.script_dir=script_dir
-        self.ui_wel = Ui_Welcome_MainWindow()
+        self.ui_dir = Ui_Directories_MainWindow()
         self.done=False
         self.setupUi()
     def setupUi(self):
@@ -320,7 +320,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         webbrowser.open(self.output_dir)
     def click(self):
         if self.done:
-            self.ui_wel.show()
+            self.ui_dir.show()
             self.close()
         else:
             self.close()
