@@ -1,15 +1,31 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-from constants import Constants
 import sys ,  os,time,webbrowser
-C= Constants()
 
+class Constants():
+    SC_WIDTH, SC_HEIGHT = 600, 450
+    SC_X, SC_Y = 250, 150
+    LBL_WIDTH, LBL_HEIGHT = 550, 10
+    BTN_WIDTH, BTN_HEIGHT = 80, 25
+    
+    def color_blue_light(self):
+        return  "color: rgb(197, 255, 254);\n"
+    def color_blue_dark(self):
+        return "color: rgb(94, 130, 180);\n"
+    def color_white(self):
+        return "color: rgb(255, 255, 255);\n"
+    def color_gray_light(self):
+        return "color: rgb(230, 230, 230);\n"
+    def color_black(self):
+        return "color: rgb(0, 0, 0);\n"
+    def color_red(self):
+        return "color: rgb(230,30,30);\n"
 class Ui_Welcome_MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui_Welcome_MainWindow, self).__init__()
         self.setObjectName("MainWindow")
-        self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
+        self.setGeometry(Constants().SC_X,Constants().SC_Y,Constants().SC_WIDTH,Constants().SC_HEIGHT)
         self.setAutoFillBackground(False)
-        self.setStyleSheet("background-"+C.color_blue_light())
+        self.setStyleSheet("background-"+Constants().color_blue_light())
         self.file_dir = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir)
         icon_path = "sprites/icon.png"
         file_path = os.path.join(self.file_dir, icon_path)
@@ -37,7 +53,7 @@ class Ui_Welcome_MainWindow(QtWidgets.QMainWindow):
         font = QtGui.QFont()
         font.setPointSize(16)
         self.btn_start.setFont(font)
-        self.btn_start.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
+        self.btn_start.setStyleSheet("background-"+Constants().color_blue_dark()+Constants().color_blue_light())
         self.btn_start.setObjectName("btn_start")
         self.btn_start.clicked.connect(self.click_start)
         '''welcome label'''
@@ -69,8 +85,8 @@ class Ui_Directories_MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui_Directories_MainWindow, self).__init__()
         self.setObjectName("MainWindow")
-        self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
-        self.setStyleSheet("background-"+C.color_blue_light())
+        self.setGeometry(Constants().SC_X,Constants().SC_Y,Constants().SC_WIDTH,Constants().SC_HEIGHT)
+        self.setStyleSheet("background-"+Constants().color_blue_light())
         self.file_dir = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir)
         icon_path = "sprites/icon.png"
         file_path = os.path.join(self.file_dir, icon_path)
@@ -88,26 +104,26 @@ class Ui_Directories_MainWindow(QtWidgets.QMainWindow):
         self.lbl_audio_dir.setObjectName("lbl_audio_dir")
         self.lbl_audio_found = QtWidgets.QLabel(self.centralwidget)
         self.lbl_audio_found.setGeometry(QtCore.QRect(180, 20, 571, 16))
-        self.lbl_audio_found.setStyleSheet("QLabel { "+C.color_red()+"}")
+        self.lbl_audio_found.setStyleSheet("QLabel { "+Constants().color_red()+"}")
         self.lbl_audio_found.setHidden(True)
         self.lbl_audio_format = QtWidgets.QLabel(self.centralwidget)
         self.lbl_audio_format.setGeometry(QtCore.QRect(180, 20, 571, 16))
-        self.lbl_audio_format.setStyleSheet("QLabel { "+C.color_red()+"}")
+        self.lbl_audio_format.setStyleSheet("QLabel { "+Constants().color_red()+"}")
         self.lbl_audio_format.setHidden(True)
         self.txt_output_dir = QtWidgets.QLineEdit(self.centralwidget)
         self.txt_output_dir.setGeometry(QtCore.QRect(10, 110, 571, 25))
-        self.txt_output_dir.setStyleSheet("background-"+C.color_white())
+        self.txt_output_dir.setStyleSheet("background-"+Constants().color_white())
         self.txt_output_dir.setText("")
         self.txt_audio_dir = QtWidgets.QLineEdit(self.centralwidget)
         self.txt_audio_dir.setGeometry(QtCore.QRect(10, 50, 571, 25))
-        self.txt_audio_dir.setStyleSheet("background-"+C.color_white())
+        self.txt_audio_dir.setStyleSheet("background-"+Constants().color_white())
         self.txt_audio_dir.setText("")
         self.lbl_out_dir = QtWidgets.QLabel(self.centralwidget)
         self.lbl_out_dir.setGeometry(QtCore.QRect(10, 90, 180, 16))
         self.lbl_out_dir.setObjectName("lbl_out_dir")
         self.lbl_out_found = QtWidgets.QLabel(self.centralwidget)
         self.lbl_out_found.setGeometry(QtCore.QRect(180, 90, 571, 16))
-        self.lbl_out_found.setStyleSheet("QLabel { "+C.color_red()+"}")
+        self.lbl_out_found.setStyleSheet("QLabel { "+Constants().color_red()+"}")
         self.lbl_out_found.setHidden(True)
         self.checkBox = QtWidgets.QCheckBox(self.centralwidget)
         self.checkBox.setGeometry(QtCore.QRect(10, 150, 571, 20))
@@ -123,25 +139,25 @@ class Ui_Directories_MainWindow(QtWidgets.QMainWindow):
         self.lbl_script_dir.setHidden(True)
         self.lbl_script_found = QtWidgets.QLabel(self.centralwidget)
         self.lbl_script_found.setGeometry(QtCore.QRect(180, 210, 571, 16))
-        self.lbl_script_found.setStyleSheet("QLabel { "+C.color_red()+"}")
+        self.lbl_script_found.setStyleSheet("QLabel { "+Constants().color_red()+"}")
         self.lbl_script_found.setHidden(True)
         self.lbl_script_format = QtWidgets.QLabel(self.centralwidget)
         self.lbl_script_format.setGeometry(QtCore.QRect(180, 210, 571, 16))
-        self.lbl_script_format.setStyleSheet("QLabel { "+C.color_red()+"}")
+        self.lbl_script_format.setStyleSheet("QLabel { "+Constants().color_red()+"}")
         self.lbl_script_format.setHidden(True)
         self.txt_script_dir = QtWidgets.QLineEdit(self.centralwidget)
         self.txt_script_dir.setGeometry(QtCore.QRect(10, 240, 571, 25))
-        self.txt_script_dir.setStyleSheet("background-"+C.color_white())
+        self.txt_script_dir.setStyleSheet("background-"+Constants().color_white())
         self.txt_script_dir.setText("")
         self.txt_script_dir.setObjectName("txt_script_dir")
         self.txt_script_dir.setHidden(True)
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(520, 400, 75, 23))
-        self.pushButton.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
+        self.pushButton.setStyleSheet("background-"+Constants().color_blue_dark()+Constants().color_blue_light())
         self.pushButton.setObjectName("pushButton")
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(440, 400, 75, 23))
-        self.pushButton_2.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
+        self.pushButton_2.setStyleSheet("background-"+Constants().color_blue_dark()+Constants().color_blue_light())
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_2.clicked.connect(self.click_run)
         self.pushButton.clicked.connect(self.click_cancel)
@@ -171,9 +187,7 @@ class Ui_Directories_MainWindow(QtWidgets.QMainWindow):
     def check_b(self):
         if self.checkBox.isChecked():
             self.checkBox_2.setCheckable(False)
-            self.checkBox_2.setStyleSheet("QCheckBox::indicator{ border: 1px solid black; background-"+C.color_gray_light()+
-"}\n"
-"")
+            self.checkBox_2.setStyleSheet("QCheckBox::indicator{ border: 1px solid black; background-"+Constants().color_gray_light()+"}\n")
         else:
             self.checkBox_2.setCheckable(True)
             self.checkBox_2.setStyleSheet("")
@@ -181,9 +195,7 @@ class Ui_Directories_MainWindow(QtWidgets.QMainWindow):
     def check_b2(self):
         if self.checkBox_2.isChecked():
             self.checkBox.setCheckable(False)
-            self.checkBox.setStyleSheet("QCheckBox::indicator{ border: 1px solid black; background-"+C.color_gray_light()+
-"}\n"
-"")
+            self.checkBox.setStyleSheet("QCheckBox::indicator{ border: 1px solid black; background-"+Constants().color_gray_light()+"}\n")
             self.lbl_script_dir.setHidden(False)
             self.txt_script_dir.setHidden(False)
         else:
@@ -245,8 +257,8 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
     def __init__(self,audio_dir,output_dir,script_dir):
         super(Ui_Converting_MainWindow, self).__init__()
         self.setObjectName("MainWindow")
-        self.setGeometry(C.SC_X,C.SC_Y,C.SC_WIDTH,C.SC_HEIGHT)
-        self.setStyleSheet("background-"+C.color_blue_light())
+        self.setGeometry(Constants().SC_X,Constants().SC_Y,Constants().SC_WIDTH,Constants().SC_HEIGHT)
+        self.setStyleSheet("background-"+Constants().color_blue_light())
         self.file_dir = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir)
         icon_path = "sprites/icon.png"
         file_path = os.path.join(self.file_dir, icon_path)
@@ -268,26 +280,24 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         self.label.setObjectName("label")
         self.progressBar = QtWidgets.QProgressBar(self.centralwidget)
         self.progressBar.setGeometry(QtCore.QRect(30, 110, 531, 31))
-        self.progressBar.setStyleSheet("QProgressBar::chunk { background-"+C.color_blue_dark()+
-"}\n"
-"")
+        self.progressBar.setStyleSheet("QProgressBar::chunk { background-"+Constants().color_blue_dark()+"}\n")
         self.progressBar.setProperty("value", 0)
         self.progressBar.setAlignment(QtCore.Qt.AlignCenter)
         self.progressBar.setObjectName("progressBar")
         self.pushButton = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton.setGeometry(QtCore.QRect(520, 400, 75, 23))
-        self.pushButton.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
+        self.pushButton.setStyleSheet("background-"+Constants().color_blue_dark()+Constants().color_blue_light())
         self.pushButton.setObjectName("pushButton")
         self.pushButton.clicked.connect(self.click)
         self.pushButton_2 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_2.setGeometry(QtCore.QRect(210, 200, 151, 31))
-        self.pushButton_2.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
+        self.pushButton_2.setStyleSheet("background-"+Constants().color_blue_dark()+Constants().color_blue_light())
         self.pushButton_2.setObjectName("pushButton_2")
         self.pushButton_2.setHidden(True)
         self.pushButton_2.clicked.connect(self.open_folder)
         self.pushButton_3 = QtWidgets.QPushButton(self.centralwidget)
         self.pushButton_3.setGeometry(QtCore.QRect(440, 400, 75, 23))
-        self.pushButton_3.setStyleSheet("background-"+C.color_blue_dark()+C.color_blue_light())
+        self.pushButton_3.setStyleSheet("background-"+Constants().color_blue_dark()+Constants().color_blue_light())
         self.pushButton_3.setObjectName("pushButton_3")
         self.pushButton_3.clicked.connect(self.progressBar_method)
         self.setCentralWidget(self.centralwidget)
