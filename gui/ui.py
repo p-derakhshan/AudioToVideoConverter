@@ -95,6 +95,8 @@ class Ui_Directories_MainWindow(QtWidgets.QMainWindow):
         self.audio_dir=''
         self.output_dir=''
         self.script_dir=''
+        self.has_script=False
+        self.text=False
         self.centralwidget.setObjectName("centralwidget")
         self.setupUi()
 
@@ -186,20 +188,24 @@ class Ui_Directories_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_2.setText(_translate("MainWindow", "NEXT"))
     def check_b(self):
         if self.checkBox.isChecked():
+            self.text=True
             self.checkBox_2.setCheckable(False)
             self.checkBox_2.setStyleSheet("QCheckBox::indicator{ border: 1px solid black; background-"+Constants().color_gray_light()+"}\n")
         else:
+            self.text=False
             self.checkBox_2.setCheckable(True)
             self.checkBox_2.setStyleSheet("")
         
     def check_b2(self):
         if self.checkBox_2.isChecked():
             self.checkBox.setCheckable(False)
+            self.has_script=True
             self.checkBox.setStyleSheet("QCheckBox::indicator{ border: 1px solid black; background-"+Constants().color_gray_light()+"}\n")
             self.lbl_script_dir.setHidden(False)
             self.txt_script_dir.setHidden(False)
         else:
             self.script_dir =""
+            self.has_script=False
             self.lbl_script_format.setHidden(True)
             self.lbl_script_found.setHidden(True)
             self.lbl_script_dir.setHidden(True)
@@ -250,11 +256,11 @@ class Ui_Directories_MainWindow(QtWidgets.QMainWindow):
         self.output_dir = self.txt_output_dir.text()
         self.script_dir = self.txt_script_dir.text() 
         if self.cheak_format():
-            self.ui_convert = Ui_Converting_MainWindow(self.audio_dir,self.output_dir, self.script_dir)
+            self.ui_convert = Ui_Converting_MainWindow(self.audio_dir,self.output_dir, self.script_dir,self.text,self.has_script)
             self.close()
             self.ui_convert.show()
 class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
-    def __init__(self,audio_dir,output_dir,script_dir):
+    def __init__(self,audio_dir,output_dir,script_dir,text,has_script):
         super(Ui_Converting_MainWindow, self).__init__()
         self.setObjectName("MainWindow")
         self.setGeometry(Constants().SC_X,Constants().SC_Y,Constants().SC_WIDTH,Constants().SC_HEIGHT)
@@ -268,6 +274,8 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         self.audio_dir=audio_dir
         self.output_dir=output_dir
         self.script_dir=script_dir
+        self.text=text
+        self.has_script=has_script
         self.ui_dir = Ui_Directories_MainWindow()
         self.done=False
         self.setupUi()
@@ -319,7 +327,23 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.label.setText(_translate("MainWindow", "converting..."))
         self.pushButton_3.setHidden(True)
-        for i in range(101):
+        if self.has_script :
+            #call annotation remover
+        else:
+            #call speech recognation
+        for i in range(0,21):
+            time.sleep(0.01)
+            self.progressBar.setValue(i)
+        #call force aligner
+        for i in range(21,31):
+            time.sleep(0.01)
+            self.progressBar.setValue(i)
+        #call phoneme Converter
+        for i in range(31,41):
+            time.sleep(0.01)
+            self.progressBar.setValue(i)
+        #call movie maker
+        for i in range(41,100):
             time.sleep(0.01)
             self.progressBar.setValue(i)
         self.done=True
