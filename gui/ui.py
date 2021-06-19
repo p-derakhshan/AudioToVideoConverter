@@ -19,6 +19,17 @@ class Constants():
         return "color: rgb(0, 0, 0);\n"
     def color_red(self):
         return "color: rgb(230,30,30);\n"
+
+def set_model(train_dir):
+    from deepspeech import Model
+    model_file_path=train_dir+'deepspeech-0.7.4-models.pbmm'
+    lm_file_path=train_dir+'deepspeech-0.7.4-models.scorer'
+    beam_width, lm_alpha, lm_beta = 100, 0.75, 1.85
+    model = Model(model_file_path)
+    model.enableExternalScorer(lm_file_path)
+    model.setScorerAlphaBeta(lm_alpha, lm_beta)
+    model.setBeamWidth(beam_width)
+    return model
 class Ui_Welcome_MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui_Welcome_MainWindow, self).__init__()
@@ -310,8 +321,6 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         self.setStatusBar(self.statusbar)
         self.retranslateUi()
         QtCore.QMetaObject.connectSlotsByName(self)
-        
-
     def retranslateUi(self):
         _translate = QtCore.QCoreApplication.translate
         self.setWindowTitle(_translate("AudioToVideo", "AudioToVideo"))
@@ -323,25 +332,58 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.label.setText(_translate("MainWindow", "converting..."))
         self.pushButton_3.setHidden(True)
+        '''./files : directory for temp files'''
+        files = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir+ os.sep+'files/')
+        audio, audio_name = os.path.split(self.audio_dir)
+        name = os.path.splitext(audio_name)[0]
+        train_dir = '' #installationpath/speech/
+        script, timestamps= files+'script.txt',files+'script.jason'
+        sys.path.insert(0, '..')
+
+        from source.forcedaligner import Tools, ForcedAligner
+        tools = Tools()
+        '''convert audio to .wav format and save in ./files'''
+        audio = tools.get_wav_file(self.audio_dir,files)
+
         if self.has_script :
-            #call annotation remover
+            '''if user has a script, remove annotations and save script.txt in ./files'''
+            tools.annotation_remover(self.script_dir,script)
         else:
-            #call speech recognation
+            '''convert speech to text and save script.txt in ./files'''
+            from source.speechrecognizer import SpeechRecognition
+            model = set_model(train_dir)
+            speechrecognition = SpeechRecognition(model)
+            speechrecognition.convert_speech_to_text(audio,script)
+
         for i in range(0,21):
             time.sleep(0.01)
             self.progressBar.setValue(i)
-        #call force aligner
+
+        '''align audio and script and save timestamps.jason in ./files'''
+        forcedaligner = ForcedAligner()
+        forcedaligner.align(audio,script,timestamps)
+
         for i in range(21,31):
             time.sleep(0.01)
             self.progressBar.setValue(i)
-        #call phoneme Converter
+
+        from source.videomaker import VideoCreator
+        videocreator = VideoCreator()
+
+        '''convert phonemes and return a list of words and their values'''
+        words = videocreator.convert_phonemes(timestamps)
+        
         for i in range(31,41):
             time.sleep(0.01)
             self.progressBar.setValue(i)
-        #call movie maker
+
+        '''create the output video file'''
+        videocreator.creat_video(audio, (self.output_dir+'/'+name), words)
+        
         for i in range(41,100):
             time.sleep(0.01)
             self.progressBar.setValue(i)
+
         self.done=True
         self.pushButton_2.setHidden(False)
         self.label.setText(_translate("MainWindow", "Done"))
