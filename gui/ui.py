@@ -218,7 +218,7 @@ class Ui_Directories_MainWindow(QtWidgets.QMainWindow):
         output_format=False
         if os.path.isfile(self.audio_dir):
             self.lbl_audio_found.setHidden(True)
-            audio_extenions =["wav"]
+            audio_extenions =['wav','mp3','flac']
             if self.audio_dir.endswith(tuple(audio_extenions)):
                 self.lbl_audio_format.setHidden(True)
                 audio_format=True
@@ -262,6 +262,7 @@ class Ui_Directories_MainWindow(QtWidgets.QMainWindow):
 class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
     def __init__(self,audio_dir,output_dir,script_dir,text,has_script):
         super(Ui_Converting_MainWindow, self).__init__()
+        self.audio_dir, self.output_dir, self.script_dir,self.text,self.has_script=audio_dir, output_dir,script_dir, text, has_script
         self.setObjectName("MainWindow")
         self.setGeometry(Constants().SC_X,Constants().SC_Y,Constants().SC_WIDTH,Constants().SC_HEIGHT)
         self.setStyleSheet("background-"+Constants().color_blue_light())
@@ -271,11 +272,6 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         self.setWindowIcon(QtGui.QIcon(file_path))
         self.centralwidget = QtWidgets.QWidget(self)
         self.centralwidget.setObjectName("centralwidget")
-        self.audio_dir=audio_dir
-        self.output_dir=output_dir
-        self.script_dir=script_dir
-        self.text=text
-        self.has_script=has_script
         self.ui_dir = Ui_Directories_MainWindow()
         self.done=False
         self.setupUi()
