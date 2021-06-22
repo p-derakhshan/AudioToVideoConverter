@@ -333,12 +333,13 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         self.label.setText(_translate("MainWindow", "converting..."))
         self.pushButton_3.setHidden(True)
         '''./files : directory for temp files'''
-        files = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir+ os.sep+'files/')
+        files = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir+ os.sep)+'/files/'
         audio, audio_name = os.path.split(self.audio_dir)
         name = os.path.splitext(audio_name)[0]
         train_dir = '' #installationpath/speech/
-        script, timestamps= files+'script.txt',files+'script.jason'
-        sys.path.insert(0, '..')
+        script, timestamps= files+'script.txt',files+'script.json'
+        
+        sys.path.insert(0,(sys.path[0]+'/..'))
 
         from source.forcedaligner import Tools, ForcedAligner
         tools = Tools()
@@ -358,7 +359,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         for i in range(0,21):
             time.sleep(0.01)
             self.progressBar.setValue(i)
-
+        
         '''align audio and script and save timestamps.jason in ./files'''
         forcedaligner = ForcedAligner()
         forcedaligner.align(audio,script,timestamps)
