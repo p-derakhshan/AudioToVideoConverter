@@ -389,8 +389,12 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_2.setHidden(False)
         self.label.setText(_translate("MainWindow", "Done"))
         self.pushButton.setText(_translate("MainWindow", "Again"))
+        
     def open_folder(self):
-        webbrowser.open(self.output_dir)
+        #webbrowser.open(self.output_dir)
+        import subprocess
+        subprocess.Popen(['xdg-open', self.output_dir])
+
     def click(self):
         if self.done:
             self.ui_dir.show()
