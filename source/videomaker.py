@@ -1,5 +1,6 @@
 from moviepy.editor import *
 import os
+import json
 class VideoCreator:
     def __init__(self):
         self.images = {
@@ -13,8 +14,11 @@ class VideoCreator:
         for key,value in self.images.items(): self.images[key]= os.path.join(file_dir, value) #.../sprites/char?
     
     def convert_phonemes(self,timestaps_path): #read .jason file and convert timestaps to sprites addresses
-        pass
-
+        json_file= open(timestaps_path, )
+        data = json.load(json_file)
+        timestamps = [[i["alignedWord"],i["start"],i["end"],i["phonemes"]] for i in data["words"]]
+        return timestamps
+    
     def word_values(self, word): #word = [word value, start, end, phonemes list]
         return word[0], (word[2]-word[1]), word[3]
 
