@@ -379,7 +379,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
             self.progressBar.setValue(i)
 
         '''create the output video file'''
-        videocreator.creat_video(audio, (self.output_dir+'/'+name), words)
+        videocreator.creat_video(audio,(self.output_dir+'/'+name) , words)
         
         for i in range(41,100):
             time.sleep(0.01)
