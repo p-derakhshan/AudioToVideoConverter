@@ -381,7 +381,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         '''create the output video file'''
         videocreator.creat_video(audio,(self.output_dir+'/'+name) , words)
         
-        for i in range(41,100):
+        for i in range(41,101):
             time.sleep(0.01)
             self.progressBar.setValue(i)
 
@@ -389,7 +389,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_2.setHidden(False)
         self.label.setText(_translate("MainWindow", "Done"))
         self.pushButton.setText(_translate("MainWindow", "Again"))
-        
+
     def open_folder(self):
         #webbrowser.open(self.output_dir)
         import subprocess
