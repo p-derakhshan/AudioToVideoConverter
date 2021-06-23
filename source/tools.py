@@ -20,13 +20,13 @@ class Tools:
             audio= new_file
         return audio
 
-    def tune_audio(self,file_wav):
+    def tune_audio(self,file_wav,files_dir):
         wav_file = AudioSegment.from_file(file=file_wav)
         wav_file = wav_file.set_frame_rate(16000)
         wav_file = wav_file.set_channels(1)
-        out_file = '{}16khz(1).wav'.format(os.path.splitext(file_wav)[0])
+        out_file = '{}_16khz.wav'.format(os.path.splitext(files_dir)[0])
         wav_file.export(out_f=out_file,format='wav')
         return out_file
     
-    def align_phonemes(self, audio_dir, script_dir, output_dir ):
-        pyfoal.from_file_to_file(audio_dir, output_dir, output_dir) 
+    def align_phonemes(self, audio_dir, script_dir, timestamps_dir):
+        pyfoal.from_file_to_file(script_dir, audio_dir, timestamps_dir) 
