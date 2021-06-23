@@ -2,7 +2,7 @@ import os, pyfoal
 from pydub import AudioSegment
 
 class Tools:
-    def annotation_remover(self, script_file, output_dir):
+    def remove_annotations(self, script_file, output_dir):
         with open(script_file, "r") as input:
             with open(output_dir, "w") as output:
                 for line in input:
@@ -20,7 +20,7 @@ class Tools:
             audio= new_file
         return audio
 
-    def tuning(self,file_wav):
+    def tune_audio(self,file_wav):
         wav_file = AudioSegment.from_file(file=file_wav)
         wav_file = wav_file.set_frame_rate(16000)
         wav_file = wav_file.set_channels(1)
@@ -28,5 +28,5 @@ class Tools:
         wav_file.export(out_f=out_file,format='wav')
         return out_file
     
-    def phoneme_alignments(self, audio_dir, text_dir, output_dir ):
-        phoneme_alignments = pyfoal.from_file_to_file(audio_dir, text_dir, output_dir) 
+    def align_phonemes(self, audio_dir, script_dir, output_dir ):
+        pyfoal.from_file_to_file(audio_dir, output_dir, output_dir) 
