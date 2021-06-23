@@ -354,6 +354,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
 
         if self.has_script :
             '''if user has a script, remove annotations and save script.txt in ./files'''
+            script=files+'script.txt'
             tools.remove_annotations(self.script_dir,script)
         else:
             '''convert speech to text and save script.txt in ./files'''
@@ -366,25 +367,26 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
             time.sleep(0.01)
             self.progressBar.setValue(i)
         
-        '''align audio and script and save timestamps.jason in ./files'''
-        tools.align_phonemes(audio_tuned,script,timestamps)
-        for i in range(21,31):
-            time.sleep(0.01)
-            self.progressBar.setValue(i)
+        if not self.text:
+            '''align audio and script and save timestamps.jason in ./files'''
+            tools.align_phonemes(audio_tuned,script,timestamps)
+            for i in range(21,31):
+                time.sleep(0.01)
+                self.progressBar.setValue(i)
 
-        from source.videomaker import VideoCreator
-        videocreator = VideoCreator()
+            from source.videomaker import VideoCreator
+            videocreator = VideoCreator()
 
-        '''convert phonemes and return a list of words and their values'''
-        words = videocreator.convert_phonemes(timestamps)
-        
-        for i in range(31,41):
-            time.sleep(0.01)
-            self.progressBar.setValue(i)
+            '''convert phonemes and return a list of words and their values'''
+            words = videocreator.convert_phonemes(timestamps)
+            
+            for i in range(31,41):
+                time.sleep(0.01)
+                self.progressBar.setValue(i)
 
-        '''create the output video file'''
-        videocreator.creat_video(audio, output_dir ,words)
-        
+            '''create the output video file'''
+            videocreator.creat_video(audio, output_dir ,words)
+            
         for i in range(41,101):
             time.sleep(0.01)
             self.progressBar.setValue(i)
