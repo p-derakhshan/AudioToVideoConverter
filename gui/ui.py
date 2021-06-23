@@ -1,5 +1,6 @@
 from PyQt5 import QtCore, QtGui, QtWidgets
-import sys ,  os,time,webbrowser
+import sys, os, time, subprocess
+
 
 class Constants():
     SC_WIDTH, SC_HEIGHT = 600, 450
@@ -332,38 +333,40 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         _translate = QtCore.QCoreApplication.translate
         self.label.setText(_translate("MainWindow", "converting..."))
         self.pushButton_3.setHidden(True)
-        '''./files : directory for temp files'''
-        files = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir+ os.sep)+'/files/'
-        audio, audio_name = os.path.split(self.audio_dir)
+        '''./files/ : directory for temp files'''
+        files = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir+ os.sep)+'/files'
+        subprocess.Popen(['mkdir', files])
+        files+='/'
+        audio_dir, audio_name = os.path.split(self.audio_dir)
         name = os.path.splitext(audio_name)[0]
-        train_dir = '' #installationpath/speech/
+        train_dir = '/home/parya/atvc_env/speech/' #installationpath/speech/
         script, timestamps= files+'script.txt',files+'script.json'
         
         sys.path.insert(0,(sys.path[0]+'/..'))
 
-        from source.forcedaligner import Tools, ForcedAligner
+        from source.tools import Tools
         tools = Tools()
-        '''convert audio to .wav format and save in ./files'''
-        audio = tools.get_wav_file(self.audio_dir,files)
+        
+        '''convert audio form input directory to .wav format and save in ./files'''
+        audio = tools.get_wav_file(self.audio_dir,name, files)
+        audio_tuned = tools.tune_audio(audio,files) #sr:16000, pa:11025
 
         if self.has_script :
             '''if user has a script, remove annotations and save script.txt in ./files'''
-            tools.annotation_remover(self.script_dir,script)
+            tools.remove_annotations(self.script_dir,script)
         else:
             '''convert speech to text and save script.txt in ./files'''
             from source.speechrecognizer import SpeechRecognition
             model = set_model(train_dir)
             speechrecognition = SpeechRecognition(model)
-            speechrecognition.convert_speech_to_text(audio,script)
+            speechrecognition.convert_speech_to_text(audio_tuned,script)
 
         for i in range(0,21):
             time.sleep(0.01)
             self.progressBar.setValue(i)
         
         '''align audio and script and save timestamps.jason in ./files'''
-        forcedaligner = ForcedAligner()
-        forcedaligner.align(audio,script,timestamps)
-
+        tools.align_phonemes(audio_tuned,script,timestamps)
         for i in range(21,31):
             time.sleep(0.01)
             self.progressBar.setValue(i)
@@ -392,7 +395,6 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
 
     def open_folder(self):
         #webbrowser.open(self.output_dir)
-        import subprocess
         subprocess.Popen(['xdg-open', self.output_dir])
 
     def click(self):
