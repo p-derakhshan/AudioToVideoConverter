@@ -1,4 +1,4 @@
-import os
+import os, pyfoal
 from pydub import AudioSegment
 
 class Tools:
@@ -33,3 +33,5 @@ class Tools:
         wav_file.export(out_f=out_file,format='wav')
         return out_file
     
+    def phoneme_alignments(self, audio_dir, text_dir, output_dir ):
+        phoneme_alignments = pyfoal.from_file_to_file(audio_dir, text_dir, output_dir) 
