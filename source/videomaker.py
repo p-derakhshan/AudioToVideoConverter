@@ -47,11 +47,14 @@ class VideoCreator:
     def creat_video(self,audio_path, video_path, timestamps): #create the output video file
         fps=25
         texts, frames=[], []
-        for i in range(len(timestamps)-5):
+        values=['']
+        for i in range(len(timestamps)):
+            if i%7==0: values = [values[-1]]
             word = timestamps[i]
             value, duration_total, phonemes = self.word_values(word)
-            for j in range(1,5):  value+= (' '+timestamps[i+j][0])
-            text = TextClip(value.lower(),color='green', font='Arial',fontsize=80).set_duration(duration_total)
+            if not value in ['sp','sil','LG','NS','BR','CG','LS']:
+                values.append(value.lower())
+            text = TextClip(' '.join(values),color='green', font='Arial',fontsize=80).set_duration(duration_total)
             texts.append(text)
             for phoneme in phonemes:
                 vowel,duration=self.phoneme_values(phoneme)
@@ -60,6 +63,6 @@ class VideoCreator:
         subtitle = concatenate(texts,method='compose')
         video= concatenate(frames,method='compose')
         video = video.set_audio(AudioFileClip(audio_path))
-        result = CompositeVideoClip([video,subtitle.set_position((0.01,0.9), relative=True)])
+        result = CompositeVideoClip([video,subtitle.set_pos('bottom')])
         result.write_videofile(video_path, audio=True,fps=fps)
 
