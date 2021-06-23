@@ -25,9 +25,9 @@ class VideoCreator:
                         "UH0": "char2.jpg", "UH1": "char2.jpg", "UH2": "char2.jpg",
                         "UW0": "char6.jpg", "UW1": "char6.jpg", "UW2": "char6.jpg",
                         "V": "char11.jpg", "W": "char6.jpg", "Y": "char5.jpg",
-                        "Z": "char5.jpg", "ZH": "char5.jpg", "br": "char.jpg",
-                        "cg": "char.jpg", "lg": "char.jpg", "ls": "char.jpg",
-                        "ns": "char.jpg", "sil": "char.jpg", "sp": "char.jpg"}
+                        "Z": "char5.jpg", "ZH": "char5.jpg", "br": "char7.jpg",
+                        "cg": "char7.jpg", "lg": "char7.jpg", "ls": "char7.jpg",
+                        "ns": "char7.jpg", "sil": "char7.jpg", "sp": "char7.jpg"}
 
         file_dir = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir+ os.sep+'sprites/')
         for key,value in self.images.items(): self.images[key]= os.path.join(file_dir, value) #.../sprites/char?
@@ -47,9 +47,11 @@ class VideoCreator:
     def creat_video(self,audio_path, video_path, timestamps): #create the output video file
         fps=25
         texts, frames=[], []
-        for word in timestamps:
+        for i in range(len(timestamps)-5):
+            word = timestamps[i]
             value, duration_total, phonemes = self.word_values(word)
-            text = TextClip(value,color='green', font='Arial',fontsize=140).set_pos('bottom').set_duration(duration_total)
+            for j in range(1,5):  value+= (' '+timestamps[i+j][0])
+            text = TextClip(value.lower(),color='green', font='Arial',fontsize=80).set_duration(duration_total)
             texts.append(text)
             for phoneme in phonemes:
                 vowel,duration=self.phoneme_values(phoneme)
@@ -58,6 +60,6 @@ class VideoCreator:
         subtitle = concatenate(texts,method='compose')
         video= concatenate(frames,method='compose')
         video = video.set_audio(AudioFileClip(audio_path))
-        result = CompositeVideoClip([video,subtitle.set_pos('bottom')])
+        result = CompositeVideoClip([video,subtitle.set_position((0.01,0.9), relative=True)])
         result.write_videofile(video_path, audio=True,fps=fps)
 
