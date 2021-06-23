@@ -7,3 +7,4 @@ SpeechToText/deepspeech-0.7.4-models.scorer
 SpeechToText/deepspeech-0.7.4-models.pbmm
 SpeechToText/venv
 SpeechToText/venv/Lib/site-packages/deepspeech-0.7.4.dist-info/entry_points.txt
+.vscode
