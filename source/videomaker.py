@@ -44,15 +44,6 @@ class VideoCreator:
     def phoneme_values(self,phoneme): #phoneme = [phoneme value, start, end]
         return phoneme[0], (phoneme[2]-phoneme[1])
 
-    def output_path(self,file):
-        i = 1
-        while True:
-            if os.path.exists(file+'.mp4'):
-                file = '{}({})'.format(file, i)
-                i+=1
-            else:
-                return file+'.mp4'
-
     def creat_video(self,audio_path, video_path, timestamps): #create the output video file
         fps=25
         texts, frames=[], []
@@ -68,7 +59,7 @@ class VideoCreator:
         video= concatenate(frames,method='compose')
         video = video.set_audio(AudioFileClip(audio_path))
         result = CompositeVideoClip([video,subtitle.set_pos('bottom')])
-        result.write_videofile(self.output_path(video_path), audio=True,fps=fps)
+        result.write_videofile(video_path, audio=True,fps=fps)
 
 '''test'''
 timestamps=[
