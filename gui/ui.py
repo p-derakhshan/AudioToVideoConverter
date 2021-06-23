@@ -346,7 +346,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
 
         from source.tools import Tools
         tools = Tools()
-        
+
         '''convert audio form input directory to .wav format and save in ./files'''
         audio = tools.get_wav_file(self.audio_dir,name, files)
         audio_tuned = tools.tune_audio(audio,files) #sr:16000, pa:11025
@@ -387,6 +387,8 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         for i in range(41,101):
             time.sleep(0.01)
             self.progressBar.setValue(i)
+
+        subprocess.call(['rm', '-rf', files[:-1]])
 
         self.done=True
         self.pushButton_2.setHidden(False)
