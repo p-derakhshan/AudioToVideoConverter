@@ -31,6 +31,16 @@ def set_model(train_dir):
     model.setScorerAlphaBeta(lm_alpha, lm_beta)
     model.setBeamWidth(beam_width)
     return model
+
+def new_file(file,type):
+    f,i=file,1
+    while True:
+        if os.path.exists(f+type):
+            f = '{}({})'.format(file, i)
+            i+=1
+        else:
+            return f+type
+
 class Ui_Welcome_MainWindow(QtWidgets.QMainWindow):
     def __init__(self):
         super(Ui_Welcome_MainWindow, self).__init__()
@@ -339,9 +349,11 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         files+='/'
         audio_dir, audio_name = os.path.split(self.audio_dir)
         name = os.path.splitext(audio_name)[0]
+        
         train_dir = '/home/parya/atvc_env/speech/' #installationpath/speech/
+
         output_dir = self.output_dir+'/'+name
-        script, timestamps= output_dir+'.txt',files+'script.json'
+        script,video,timestamps= new_file(output_dir,'.txt'),new_file(output_dir,'.mp4'),files+'script.json'
         
         sys.path.insert(0,(sys.path[0]+'/..'))
 
@@ -385,7 +397,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
                 self.progressBar.setValue(i)
 
             '''create the output video file'''
-            videocreator.creat_video(audio, output_dir ,words)
+            videocreator.creat_video(audio, video, words)
             
         for i in range(41,101):
             time.sleep(0.01)
