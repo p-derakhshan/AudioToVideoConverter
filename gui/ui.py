@@ -335,7 +335,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         self.pushButton_3.setHidden(True)
         '''./files/ : directory for temp files'''
         files = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir+ os.sep)+'/files'
-        subprocess.Popen(['mkdir', files])
+        subprocess.call(['mkdir', files])
         files+='/'
         audio_dir, audio_name = os.path.split(self.audio_dir)
         name = os.path.splitext(audio_name)[0]
@@ -397,7 +397,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
 
     def open_folder(self):
         #webbrowser.open(self.output_dir)
-        subprocess.Popen(['xdg-open', self.output_dir])
+        subprocess.call(['xdg-open', self.output_dir])
 
     def click(self):
         if self.done:
