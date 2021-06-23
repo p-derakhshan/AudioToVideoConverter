@@ -16,24 +16,6 @@ class SpeechRecognition:
         text_file.write(result)
         text_file.close()
 
-    def get_wav_file(self):
-        file_name = '/{}.wav'.format(os.path.splitext(self.file_name)[0])
-        file = self.file_path+file_name
-        if not self.file_name.endswith('.wav'):
-            new_file= self.files+file_name
-            AudioSegment.from_file(file).export(new_file,format='wav')
-            file = new_file
-        return file
-        #if filename.endswith('.mp3') or filename.endswith('.flac'):
-
-    def tuning(self,file_wav):
-        wav_file = AudioSegment.from_file(file=file_wav)
-        wav_file = wav_file.set_frame_rate(16000)
-        wav_file = wav_file.set_channels(1)
-        out_file = '{}16khz(1).wav'.format(os.path.splitext(file_wav)[0])
-        wav_file.export(out_f=out_file,format='wav')
-        return out_file
-
     def transcribe(self,file_wav):
         buffer, rate = self.read_wav_file(file_wav)
         data16 = np.frombuffer(buffer, dtype=np.int16)
