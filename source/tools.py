@@ -3,15 +3,16 @@ from pydub import AudioSegment
 
 class Tools:
     def remove_annotations(self, script_file, output_dir):
-        with open(script_file, "r") as input:
-            with open(output_dir, "w") as output:
-                for line in input:
-                    if "ROW" in line:
-                        line = line.translate({ord(i): None for i in "!?.,:)|(;#%^*-_=+][}{\/"})
-                        line = line.replace('@', 'atsign')
-                        line = line.replace('$', 'dollar')
-                        line = line.replace('&', 'and')
-                        output.write(line) 
+        file_in = open(script_file, 'r')
+        file_out = open(output_dir, 'w')
+        for line in file_in:
+            line = line.translate({ord(i): None for i in "!?.,:)|(;#%^*-_=+][}{\/"})
+            line = line.replace('@', 'atsign')
+            line = line.replace('$', 'dollar')
+            line = line.replace('&', 'and')
+            file_out.write(line) 
+        file_in.close
+        file_out.close
 
     def get_wav_file(self, audio, name, files_dir):
         if not audio.endswith('.wav'):
