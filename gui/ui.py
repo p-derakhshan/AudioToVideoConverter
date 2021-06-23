@@ -340,7 +340,8 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         audio_dir, audio_name = os.path.split(self.audio_dir)
         name = os.path.splitext(audio_name)[0]
         train_dir = '/home/parya/atvc_env/speech/' #installationpath/speech/
-        script, timestamps= files+'script.txt',files+'script.json'
+        output_dir = self.output_dir+'/'+name
+        script, timestamps= output_dir+'.txt',files+'script.json'
         
         sys.path.insert(0,(sys.path[0]+'/..'))
 
@@ -382,7 +383,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
             self.progressBar.setValue(i)
 
         '''create the output video file'''
-        videocreator.creat_video(audio,(self.output_dir+'/'+name) , words)
+        videocreator.creat_video(audio, output_dir ,words)
         
         for i in range(41,101):
             time.sleep(0.01)
