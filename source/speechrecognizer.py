@@ -1,8 +1,8 @@
 #from deepspeech import Model
 import numpy as np
-import wave
+import wave, os, pyfoal
 from pydub import AudioSegment
-import os
+
 
 class SpeechRecognition:
     def __init__(self,model):
@@ -46,5 +46,9 @@ class SpeechRecognition:
             frames = w.getnframes()
             buffer = w.readframes(frames)
         return buffer, rate
+
+class forcedAlignment:
+    def phoneme_alignments(self, audio_dir, text_dir, output_dir ):
+        phoneme_alignments = pyfoal.from_file_to_file(audio_dir, text_dir, output_dir)        
 
 
