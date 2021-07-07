@@ -353,7 +353,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         train_dir = '/home/parya/atvc_env/speech/' #installationpath/speech/
 
         output_dir = self.output_dir+'/'+name
-        script,video,timestamps,subtitles= new_file(output_dir,'.txt'),new_file(output_dir,'.mp4'),files+'transcript.json',new_file(output_dir,'.srt')
+        script,video,timestamps,subtitles= new_file(output_dir,'.txt'),new_file(output_dir,'.mp4'),files+'transcript.json',files+'subtitles.srt'
         
         sys.path.insert(0,(sys.path[0]+'/..'))
 
