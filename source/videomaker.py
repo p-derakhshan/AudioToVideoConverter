@@ -1,6 +1,6 @@
 from moviepy.editor import *
-import os
-import json
+from moviepy.video.tools.subtitles import SubtitlesClip
+import os, json, math
 class VideoCreator:
     def __init__(self):
         self.images = {"AA0": "char3.jpg", "AA1": "char3.jpg", "AA2": "char3.jpg",
@@ -32,37 +32,48 @@ class VideoCreator:
         file_dir = os.path.normpath(os.path.dirname(os.path.realpath(__file__))+ os.sep + os.pardir+ os.sep+'sprites/')
         for key,value in self.images.items(): self.images[key]= os.path.join(file_dir, value) #.../sprites/char?
     
-    def convert_phonemes(self,timestaps_path): #read .jason file and convert timestaps to sprites addresses
-        json_file= open(timestaps_path, )
+    def convert_phonemes(self, timestamps_path): #read .jason file and convert timestaps to sprites addresses
+        json_file= open(timestamps_path, )
         data = json.load(json_file)
-        timestamps = [[word["alignedWord"],word["start"],word["end"],word["phonemes"]] for word in data["words"]]
-        return timestamps
+        self.timestamps = [[word["alignedWord"],word["start"],word["end"],word["phonemes"]] for word in data["words"]]
 
-    def word_values(self, word): #word = [word value, start, end, phonemes list]
-        return word[0], (word[2]-word[1]), word[3]
+    def time_format(self, x): #return hh:mm:ss,ms format
+        x_f=math.floor(x)
+        hour=x_f//3600
+        minute=(x_f-hour*3600)//60
+        sec = x_f - hour*3600-minute*60
+        msec = int(math.modf(x)[0] * 100)
+        r = '{}:{}:{},{}'.format(str(hour).zfill(2),str(minute).zfill(2),str(sec).zfill(2),str(msec). zfill(3))
+        return r
+        
+    def create_subtitles(self, subtitles_path):
+        subtitle=''
+        for i in range(0,len(self.timestamps),7):
+            line, words = '', self.timestamps[i:i+7]
+            for word in words: #word = [word value, start, end, phonemes list]
+                if not word[0] in ['sp','sil','LG','NS','BR','CG','LS']: line += (word[0].lower()+' ')
+            start_msec,end_msec = words[0][1],words[-1][2]
+            start,end=self.time_format(start_msec),self.time_format(end_msec)
+            subtitle += ('{}\n{} --> {}\n{}\n\n'.format(i+1,start,end,line))
+            srt_file = open(subtitles_path,'w',encoding='utf-8')
+            srt_file.write(subtitle)
+            srt_file.close
+        return subtitles_path
 
-    def phoneme_values(self,phoneme): #phoneme = [phoneme value, start, end]
-        return phoneme[0], (phoneme[2]-phoneme[1])
-
-    def creat_video(self,audio_path, video_path, timestamps): #create the output video file
-        fps=25
-        texts, frames=[], []
-        values=['']
-        for i in range(len(timestamps)):
-            if i%7==0: values = [values[-1]]
-            word = timestamps[i]
-            value, duration_total, phonemes = self.word_values(word)
-            if not value in ['sp','sil','LG','NS','BR','CG','LS']:
-                values.append(value.lower())
-            text = TextClip(' '.join(values),color='green', font='Arial',fontsize=80).set_duration(duration_total)
-            texts.append(text)
-            for phoneme in phonemes:
-                vowel,duration=self.phoneme_values(phoneme)
+    def creat_video(self, audio_path, video_path, subtitles_path): #create the output video file
+        frames, fps = [], 25
+        for word in self.timestamps:
+            phonemes = word[3]
+            for phoneme in phonemes: #phoneme = [phoneme value, start, end]
+                vowel,duration = phoneme[0], (phoneme[2]-phoneme[1])
                 frame = ImageClip(self.images[vowel],duration=duration)
                 frames.append(frame)
-        subtitle = concatenate(texts,method='compose')
-        video= concatenate(frames,method='compose')
+
+        generator = lambda txt: TextClip(txt, font='Arial', fontsize=80, color='green')
+        subtitles = SubtitlesClip(subtitles_path, generator)
+
+        video= concatenate_videoclips(frames,method='compose')
         video = video.set_audio(AudioFileClip(audio_path))
-        result = CompositeVideoClip([video,subtitle.set_pos('bottom')])
+        result = CompositeVideoClip([video,subtitles.set_pos('bottom')])
         result.write_videofile(video_path, audio=True,fps=fps)
 
