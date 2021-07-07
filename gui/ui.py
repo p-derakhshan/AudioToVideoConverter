@@ -353,7 +353,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         train_dir = '/home/parya/atvc_env/speech/' #installationpath/speech/
 
         output_dir = self.output_dir+'/'+name
-        script,video,timestamps= new_file(output_dir,'.txt'),new_file(output_dir,'.mp4'),files+'script.json'
+        script,video,timestamps,subtitles= new_file(output_dir,'.txt'),new_file(output_dir,'.mp4'),files+'transcript.json',new_file(output_dir,'.srt')
         
         sys.path.insert(0,(sys.path[0]+'/..'))
 
@@ -390,16 +390,22 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
             videocreator = VideoCreator()
 
             '''convert phonemes and return a list of words and their values'''
-            words = videocreator.convert_phonemes(timestamps)
+            videocreator.convert_phonemes(timestamps)
             
             for i in range(31,41):
                 time.sleep(0.01)
                 self.progressBar.setValue(i)
 
+            videocreator.create_subtitles(subtitles)
+
+            for i in range(41,51):
+                time.sleep(0.01)
+                self.progressBar.setValue(i)
+
             '''create the output video file'''
-            videocreator.creat_video(audio, video, words)
+            videocreator.creat_video(audio, video, subtitles)
             
-        for i in range(41,101):
+        for i in range(51,101):
             time.sleep(0.01)
             self.progressBar.setValue(i)
 
