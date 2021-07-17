@@ -1,3 +1,4 @@
+'''enter deepspeech training files at line 354'''
 from PyQt5 import QtCore, QtGui, QtWidgets
 import sys, os, time, subprocess
 
@@ -350,7 +351,7 @@ class Ui_Converting_MainWindow(QtWidgets.QMainWindow):
         audio_dir, audio_name = os.path.split(self.audio_dir)
         name = os.path.splitext(audio_name)[0]
         
-        train_dir = '/home/parya/atvc_env/speech/' #installationpath/speech/
+        train_dir = '' #enter deepspeech training files here
 
         output_dir = self.output_dir+'/'+name
         script,video,timestamps,subtitles= new_file(output_dir,'.txt'),new_file(output_dir,'.mp4'),files+'transcript.json',files+'subtitles.srt'
